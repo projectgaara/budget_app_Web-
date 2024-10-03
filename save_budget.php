@@ -2,44 +2,29 @@
 session_start();
 header('Content-Type: application/json');
 
-// Fonction pour envoyer une réponse JSON
-function sendJsonResponse($success, $message, $data = null) {
-    echo json_encode([
-        'success' => $success,
-        'message' => $message,
-        'data' => $data
-    ]);
+if (!isset($_SESSION['user_id'])) {
+    echo json_encode(['success' => false, 'message' => 'User not logged in']);
     exit;
 }
 
-// Vérification de la session
-if (!isset($_SESSION['user_id'])) {
-    sendJsonResponse(false, 'User not logged in');
-}
-
-// Récupération des données du budget
 $input = json_decode(file_get_contents('php://input'), true);
-if (!$input) {
-    sendJsonResponse(false, 'Invalid input data');
+$budget_name = $input['name'] ?? '';
+$budget_data = json_encode($input);
+
+if (empty($budget_name)) {
+    echo json_encode(['success' => false, 'message' => 'Budget name is required']);
+    exit;
 }
 
-// Connexion à la base de données
 require_once 'db_config.php';
 
-try {
-    // Préparation de la requête
-    $stmt = $conn->prepare("UPDATE users SET budget = ? WHERE id = ?");
-    $budget_json = json_encode($input);
-    $stmt->bind_param("si", $budget_json, $_SESSION['user_id']);
+$stmt = $conn->prepare("INSERT INTO budgets (user_id, name, data) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE data = ?");
+$stmt->bind_param("isss", $_SESSION['user_id'], $budget_name, $budget_data, $budget_data);
 
-    // Exécution de la requête
-    if ($stmt->execute()) {
-        sendJsonResponse(true, 'Budget saved successfully');
-    } else {
-        sendJsonResponse(false, 'Error saving budget: ' . $stmt->error);
-    }
-} catch (Exception $e) {
-    sendJsonResponse(false, 'An error occurred: ' . $e->getMessage());
+if ($stmt->execute()) {
+    echo json_encode(['success' => true, 'message' => 'Budget saved successfully']);
+} else {
+    echo json_encode(['success' => false, 'message' => 'Error saving budget: ' . $stmt->error]);
 }
 
 $stmt->close();

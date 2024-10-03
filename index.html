@@ -26,18 +26,23 @@
     </main>
 
     <div id="saveLoadModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>Sauvegarder / Charger le Budget</h2>
-            <div class="modal-buttons">
-                <button id="saveServerButton"><i class="fas fa-cloud-upload-alt"></i> Sauvegarder sur le serveur</button>
-                <button id="loadServerButton"><i class="fas fa-cloud-download-alt"></i> Charger du serveur</button>
-                <button id="downloadJSONButton"><i class="fas fa-file-download"></i> Télécharger JSON</button>
-                <button id="uploadJSONButton"><i class="fas fa-file-upload"></i> Charger fichier JSON</button>
-            </div>
-            <input type="file" id="jsonFileInput" accept=".json" style="display: none;">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Sauvegarder / Charger le Budget</h2>
+        <input type="text" id="budgetNameInput" placeholder="Nom du budget">
+        <select id="budgetSelect">
+            <!-- Les options seront remplies dynamiquement -->
+        </select>
+        <div class="modal-buttons">
+            <button id="saveServerButton">Sauvegarder sur le serveur</button>
+            <button id="loadServerButton">Charger du serveur</button>
+            <button id="deleteBudgetButton">Supprimer le budget sélectionné</button>
+            <button id="downloadJSONButton">Télécharger JSON</button>
+            <button id="uploadJSONButton">Charger fichier JSON</button>
+            <input type="file" id="jsonFileInput" style="display: none;">
         </div>
     </div>
+</div>
 
     <!-- Autres modals (signup, etc.) restent inchangés -->
 

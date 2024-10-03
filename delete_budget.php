@@ -7,7 +7,8 @@ if (!isset($_SESSION['user_id'])) {
     exit;
 }
 
-$budget_name = $_GET['name'] ?? '';
+$input = json_decode(file_get_contents('php://input'), true);
+$budget_name = $input['name'] ?? '';
 
 if (empty($budget_name)) {
     echo json_encode(['success' => false, 'message' => 'Budget name is required']);
@@ -16,15 +17,13 @@ if (empty($budget_name)) {
 
 require_once 'db_config.php';
 
-$stmt = $conn->prepare("SELECT data FROM budgets WHERE user_id = ? AND name = ?");
+$stmt = $conn->prepare("DELETE FROM budgets WHERE user_id = ? AND name = ?");
 $stmt->bind_param("is", $_SESSION['user_id'], $budget_name);
-$stmt->execute();
-$result = $stmt->get_result();
 
-if ($row = $result->fetch_assoc()) {
-    echo json_encode(['success' => true, 'data' => json_decode($row['data'], true)]);
+if ($stmt->execute()) {
+    echo json_encode(['success' => true, 'message' => 'Budget deleted successfully']);
 } else {
-    echo json_encode(['success' => false, 'message' => 'Budget not found']);
+    echo json_encode(['success' => false, 'message' => 'Error deleting budget: ' . $stmt->error]);
 }
 
 $stmt->close();
