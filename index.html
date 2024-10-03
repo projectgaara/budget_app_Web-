@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Budget Personnel Détaillé</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <nav class="futuristic-menu">
+            <ul>
+                <li><a href="budget.html" target="content-frame"><i class="fas fa-chart-pie"></i> Budget</a></li>
+                <li><a href="tax_calculator.php" target="content-frame"><i class="fas fa-calculator"></i> Calculatrice de Taxe</a></li>
+                <li><a href="#" id="saveLoadButton"><i class="fas fa-save"></i> Sauvegarder/Charger</a></li>
+            </ul>
+        </nav>
+        <div id="authSection">
+            <!-- Cette section changera dynamiquement selon l'état de connexion -->
+        </div>
+    </header>
+
+    <main>
+        <iframe id="content-frame" name="content-frame" src="budget.html"></iframe>
+    </main>
+
+    <div id="saveLoadModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Sauvegarder / Charger le Budget</h2>
+        <input type="text" id="budgetNameInput" placeholder="Nom du budget">
+        <select id="budgetSelect">
+            <!-- Les options seront remplies dynamiquement -->
+        </select>
+        <div class="modal-buttons">
+            <button id="saveServerButton">Sauvegarder sur le serveur</button>
+            <button id="loadServerButton">Charger du serveur</button>
+            <button id="deleteBudgetButton">Supprimer le budget sélectionné</button>
+            <button id="downloadJSONButton">Télécharger JSON</button>
+            <button id="uploadJSONButton">Charger fichier JSON</button>
+            <input type="file" id="jsonFileInput" style="display: none;">
+        </div>
+    </div>
+</div>
+
+    <!-- Autres modals (signup, etc.) restent inchangés -->
+
+    <script src="script.js"></script>
+</body>
+</html>

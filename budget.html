@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Budget</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Budget Personnel Détaillé</h1>
+
+        <section id="revenus">
+            <h2>Revenus</h2>
+            <table>
+                <tbody>
+                    <tr class="total">
+                        <td>Total des revenus mensuels</td>
+                        <td id="totalRevenus">0 $CA</td>
+                    </tr>
+                </tbody>
+            </table>
+            <button onclick="parent.ajouterLigne('revenus')">Ajouter un revenu</button>
+        </section>
+
+        <section id="depenses">
+            <h2>Dépenses</h2>
+            <table>
+                <tbody>
+                    <tr class="total">
+                        <td>Total des dépenses mensuelles</td>
+                        <td id="totalDepenses">0 $CA</td>
+                    </tr>
+                </tbody>
+            </table>
+            <button onclick="parent.ajouterLigne('depenses')">Ajouter une dépense</button>
+        </section>
+
+        <section id="resume">
+            <h2>Résumé</h2>
+            <table>
+                <tr>
+                    <td>Revenus hebdomadaires estimés</td>
+                    <td id="resumeRevenusHebdo">0 $CA</td>
+                </tr>
+                <tr>
+                    <td>Dépenses hebdomadaires estimées</td>
+                    <td id="resumeDepensesHebdo">0 $CA</td>
+                </tr>
+                <tr>
+                    <td>Solde hebdomadaire estimé</td>
+                    <td id="soldeHebdo">0 $CA</td>
+                </tr>
+                <tr>
+                    <td>Revenus mensuels</td>
+                    <td id="resumeRevenusMensuels">0 $CA</td>
+                </tr>
+                <tr>
+                    <td>Dépenses mensuelles</td>
+                    <td id="resumeDepensesMensuelles">0 $CA</td>
+                </tr>
+                <tr>
+                    <td>Solde mensuel</td>
+                    <td id="soldeMensuel">0 $CA</td>
+                </tr>
+            </table>
+        </section>
+    </div>
+
+    <script>
+        // Initialiser le budget
+        if (parent.calculerTotal) {
+            parent.calculerTotal();
+        }
+    </script>
+</body>
+</html>
